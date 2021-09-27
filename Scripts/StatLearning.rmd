@@ -1,0 +1,59 @@
+---
+title: "StatLearning"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ISLR2)
+```
+
+## Question 8
+
+(a)
+```{r}
+college <- read.csv('../Data/College.csv')
+```
+
+(b)
+```{r}
+rownames(college) <- college[,1]
+college <- college[,-1]
+```
+
+(c)
+```{r}
+summary(college)
+```
+
+```{r}
+pairs(as.matrix(college[,2:11]))
+```
+
+```{r}
+college$Private <- as.factor(college$Private)
+plot(college$Private, college$Outstate, main = 'Outstate vs Private')
+```
+
+```{r}
+Elite <- rep("No", nrow(college))
+Elite[college$Top10perc > 50] <- "Yes"
+Elite <- as.factor(Elite)
+college <- data.frame(college, Elite)
+summary(college$Elite)
+```
+
+```{r}
+plot(college$Elite, college$Outstate, main = 'Outstate vs Elite')
+```
+
+```{r}
+par(mfrow = c(2, 2))
+hist(college$Top10perc, breaks = 20)
+hist(college$Apps, breaks = 50)
+hist(college$Books, breaks = 30)
+hist(college$PhD, breaks = 20)
+```
